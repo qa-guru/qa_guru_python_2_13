@@ -1,7 +1,10 @@
 from pprint import pprint
 
 import requests
+from pytest_voluptuous import S
 from requests import Response
+
+from schemas.reqres import UnknownListSchema
 
 
 def test_get_users():
@@ -30,3 +33,9 @@ def test_create_user():
     assert result.json()['job'] == job
     assert isinstance(result.json()['id'], str)
 
+
+def test_unknown_list_schema(reqres_session):
+    result = reqres_session.get('/api/unknown')
+
+    assert result.json() == S(UnknownListSchema)
+    assert result.json()['data'][2]['id'] == 3
