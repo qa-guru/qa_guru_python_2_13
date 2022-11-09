@@ -1,3 +1,4 @@
+import logging
 from pprint import pprint
 
 import requests
@@ -13,7 +14,7 @@ def test_get_users():
         params={"page": 2}
     )
     # print(response.status_code)
-    pprint(result.request.headers)
+    logging.info(result.request.headers)
     assert result.status_code == 200
     assert result.json()['page'] == 2
     assert len(result.json()['data']) != 0
@@ -39,3 +40,9 @@ def test_unknown_list_schema(reqres_session):
 
     assert result.json() == S(UnknownListSchema)
     assert result.json()['data'][2]['id'] == 3
+
+
+def test_delete(reqres_session):
+    result = reqres_session.delete('/api/users/2')
+    assert result.status_code == 204
+    assert result.text == 'f'

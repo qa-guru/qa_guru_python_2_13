@@ -2,7 +2,7 @@ requests
 pytest
 voluptuous
 pytest-voluptuous
-webdriver-manager==3.8.4
 selene==2.0.0b14
 allure-pytest
 packaging
+curlify
